@@ -1,1 +1,1 @@
-# django_pjt_1-
+# django_pjt_1
