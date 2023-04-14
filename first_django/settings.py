@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3^m-jqdlyx$vz+s-gf)@u!)g6f3qd#9=ngl_bm+^e+cuif3sat'
+SECRET_KEY = 'django-insecure-83jlobrv+i*gp4jf*ijtb+0mo-8ja7qzfmxvqzv)64e-w8d1p('
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -51,7 +52,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'first_django.urls'
 
-import os
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
