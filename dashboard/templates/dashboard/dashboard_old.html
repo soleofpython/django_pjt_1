@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+<!-- head tag의 타이틀 -->
+{% block title %}대시보드{% endblock %}
+
+<!-- css 영역 -->
+{% block style %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock style %}
+
+<!-- 페이지 콘텐츠 영역 -->
+{% block container %}
+<h1>서울 동남부 자치구별 유명식당 매출 분포</h1>
+<p><img src="{% static 'images/매출.jpg' %}" alt="이미지"></p>
+<section class="row gap-1">
+  <div class="col p-3 bg-success" style="--bs-bg-opacity: .5;"> 
+    <h3>매출이 많은 식당 순위</h3>
+    <div>
+      <p>{{max_restaurant}}</p>
+      <p>{{max_revenue}}</p>
+    </div>
+  </div>
+  <div class="col p-3 bg-warning"  style="--bs-bg-opacity: .5;">
+    <h3>전체 식당</h3>
+    <div>
+      <p><span>{{ total_revenue }} </span> 원 /
+        <span>{{ restaurant }} </span> 식당
+      </p>
+    </div>
+  </div>
+</section>
+<section class="row mt-3 pt-3">
+  <div class="col-4">
+    <div class="border p-3 shadow">
+      <h4>Add Data</h4>
+      <hr>
+      <form action="" method="POST" class="d-grid">
+        {{ form|crispy }}{% csrf_token %}
+        <input type="submit" class="btn btn-success " value="Add">
+      </form>
+    </div>
+  </div>
+  <div class="col-8">
+    <canvas id="restaurantChart"></canvas>
+  </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+  // documnet에서 chart가 표시되는 곳 지정
+  let ctx = document.getElementById('restaurantChart');
+
+  // chart data 정의 
+  // views.py에서 넘긴 키 : rest_datas
+
+  // const labels = ['1월', '2월', '3월', '4월', '5월', '6월', '7월']
+  let restaurant = [
+  {% for restaurant in restaurantDatas %}
+    '{{ cd.restaurant }}', 
+  {% endfor %}
+  ]
+  // const pop_data = [65, 59, 80, 81, 56, 55, 40]
+  let total_revenue = [
+  {% for revenue in restaurantDatas %}
+    {{ cd.revenue }},
+  {% endfor %}
+  ]
+  const data = {
+    restaurant: restaurant,
+    datasets: [{
+      label: '매출 분포',
+      data: total_revenue,
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 205, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(201, 203, 207, 0.2)'
+      ],
+      borderColor: [
+        'rgb(255, 99, 132)',
+        'rgb(255, 159, 64)',
+        'rgb(255, 205, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(54, 162, 235)',
+        'rgb(153, 102, 255)',
+        'rgb(201, 203, 207)'
+      ],
+      borderWidth: 1
+    }]
+  };
+
+  // chart 기본 설정
+  const config = {
+    type: 'bar',
+    data: data,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      },
+      responsive: true,
+      responsiveAnimationDuration: 1,
+      maintainAspectRatio: true,
+    },
+  };
+
+  // chart 객체 생성
+  // new Chart(documnet의_식별_변수, chart_기본_설정_변수)
+  new Chart(ctx, config)
+</script>
+{% endblock container%}

@@ -1,0 +1,63 @@
+<!-- Navigation-->
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+    <div class="container px-4 px-lg-5" url("../assets/img/bg-masthead.jpg")>
+        <!-- <a class="navbar-brand" href="#page-top">Sole Mio</a> -->
+        <a class="navbar-brand" href="{% url 'index' %}">Sole Mio</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto my-2 my-lg-0">
+                <li class="nav-item"><a class="nav-link" href="#about">Welcome</a></li>
+                <li class="nav-item"><a class="nav-link" href="/dashboard/">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="#services">Portfolio</a></li>
+                <!-- <li class="nav-item"><a class="nav-link" href="#portfolio">다른것</a></li> -->
+                <li class="nav-item"><a class="nav-link" href="{% static 'resume/index.html' %}">Resume</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact<Menu:context></Menu:context></a></li>                
+            </ul>
+        </div>
+        <div class="navbar-collapse justify-content-end">
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+    
+                <!-- 로그인 했을 때 -->
+                {% if user.is_active %}
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <!-- userid -->
+                  {{user.username}}
+                </a>
+    
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="/accounts/password_change/">비밀번호 변경</a></li>
+                  <li><a class="dropdown-item" href="/accounts/logout/">로그아웃</a></li>
+                </ul>
+    
+              <!-- 로그인 하지 않았을 때 -->
+              {% else %}  
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <!-- Anonymous -->
+                  <i class="bi bi-person"></i>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="/accounts/login/">로그인</a></li>
+                  <li><a class="dropdown-item" href="/accounts/register/">회원가입</a></li>
+                </ul>
+              {% endif %}
+              </li>
+            </ul>
+          </div>
+    </div>
+</nav>
+<!-- <li class="li-login-before">
+    <a href="#" class="btn-login"><span class="blind">login</span></a>
+    <div class="pop_dropbox">
+      <div class="dropbox_list">
+        <div class="dropbox_item">
+          <a href="javascript:oauth2Login();" title="새창열림"><span>로그인</span></a>
+        </div>
+        <div class="dropbox_item">
+          <a href="javascript:oauth2SignUp();" title="새창열림"><span>회원가입</span></a>
+        </div>
+      </div>
+    </div>
+  </li> -->

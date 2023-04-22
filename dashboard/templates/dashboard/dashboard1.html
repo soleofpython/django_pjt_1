@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- <html lang="en" style="height: 100%"> -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>서울 동남부 자치구별 유명식당 매출 분포</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<!-- <style>
+  .about{
+    padding-top: 10rem;
+    padding-bottom: calc(10rem - 4.5rem);
+    background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("../dashboard/templates/dashboard/bg-masthead.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+  }
+</style> -->
+<body>
+  <div class="container">
+      <!-- 홈페이지 버튼 -->
+    <a href="http://127.0.0.1:8000/" class="btn btn-primary" tabindex="-1" role="button" aria-disabled="true"><h5>HOME</h5></a>
+    
+    <div class="row">
+      <!-- class="d-grid gap-2 " -->
+      <div class="col-8" >
+        <canvas id="myChart" height="500px"></canvas>
+      </div>      
+   
+    
+      <div class="btn-group-vertical col-4 ">      
+        <div>
+          <button class="btn btn-primary" type="button" mt-5 mb-5>관악구</button>
+        </div>
+        <div>
+          <button class="btn btn-primary" type="button" mt-5 mb-5>서초구</button>
+        </div>
+        <div>
+          <button class="btn btn-primary" type="button" mt-5 mb-5>강남구</button>
+        </div>
+        <div>
+          <button class="btn btn-primary" type="button" mt-5 mb-5>송파구</button>
+        </div>
+        <div>
+          <button class="btn btn-primary" type="button" mt-5 mb-5>강동구</button>
+        </div>
+        <div >  
+          <button class="btn btn-primary" type="button" mt-5 mb-5>서울 동남권 지역</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+  
+  <!-- col-8 mx-auto, col-8 mx-auto-->
+  <!-- 부트스트랩 -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+  <!-- 차트 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    var ctx = document.getElementById('myChart');
+
+    const labels = [
+      {% for chartData in chart %}
+        "{{ chartData.restaurant }}",
+      {% endfor %}
+      ] 
+      // views.py 에서 넘어오는 값
+    const popData = [
+      {% for chartData in chart %}
+        {{ chartData.name_count }},
+      {% endfor %}
+      ]
+
+    const data = {
+      labels: labels,
+      datasets: [{
+        label: '2022년 송파구 맛집 방문 빈도수',
+        data: popData,
+        backgroundColor: [
+          
+          'rgb(255, 109, 96, 0.7)',
+          'rgb(247, 208, 96, 0.7)', 
+          'rgb(243, 233, 159, 0.7)',
+          'rgb(152, 216, 170, 0.7)',
+          'rgb(199, 233, 176, 0.7)',
+          
+        ],
+        borderColor: [
+          'rgb(255, 99, 132)',
+          'rgb(255, 159, 64)',
+          'rgb(255, 205, 86)',
+          'rgb(75, 192, 192)',
+          'rgb(54, 162, 235)',
+          'rgb(153, 102, 255)',
+          'rgb(201, 203, 207)'
+        ],
+        borderWidth: 1
+        // <div style=“color:red”>글자색이 빨간색</div>
+      }]
+    };
+
+    // chart default setting
+    const config = {
+      type: 'bar',
+      data: data,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+          }
+        },
+        responsive: true,
+        responsiveAnimarionDuration: 2,
+        maintainAspectRatio: true,
+        aspectRatio: false
+      },
+    };
+
+    // chart 객체 설정
+    // new Chart(DOM 에서 chart push 영역, chart default setting)
+    new Chart(ctx, config)
+  </script>
+  <!-- {{chart}} -->
+
+  <!-- 차트 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    var ctx = document.getElementById('myChart1');
+
+    const DATA_COUNT = 5;
+    const NUMBER_CFG = {count: DATA_COUNT, min: 0, max: 100};
+   
+    const data = {
+      labels: labels,
+      datasets: [{
+          label: '2022년 송파구 맛집 방문 빈도수',
+          data: Utils.numbers(NUMBER_CFG),
+          backgroundColor: Object.values(Utils.CHART_COLORS),
+        }
+      ]
+    };
+
+    const labels = [
+      {% for chartData in chart %}
+        "{{ chartData.restaurant }}",
+      {% endfor %}
+      ] 
+      // views.py 에서 넘어오는 값
+    const popData = [
+      {% for chartData in chart %}
+        {{ chartData.name_count }},
+      {% endfor %}
+      ]
+
+    const data = {
+      labels: labels,
+      datasets: [{
+        label: '2022년 송파구 맛집 방문 빈도수',
+        data: popData,
+        backgroundColor: [
+          
+          'rgb(255, 109, 96, 0.7)',
+          'rgb(247, 208, 96, 0.7)', 
+          'rgb(243, 233, 159, 0.7)',
+          'rgb(152, 216, 170, 0.7)',
+          'rgb(199, 233, 176, 0.7)',
+          
+        ],
+        borderColor: [
+          'rgb(255, 99, 132)',
+          'rgb(255, 159, 64)',
+          'rgb(255, 205, 86)',
+          'rgb(75, 192, 192)',
+          'rgb(54, 162, 235)',
+          'rgb(153, 102, 255)',
+          'rgb(201, 203, 207)'
+        ],
+        borderWidth: 1
+        // <div style=“color:red”>글자색이 빨간색</div>
+      }]
+    };
+
+    // chart default setting
+    const config = {
+      type: 'doughnut',
+      data: data,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          title: {
+            display: true,
+            text: 'Chart.js Doughnut Chart'
+          }
+        }
+      },
+    };
+        // chart 객체 설정
+    // new Chart(DOM 에서 chart push 영역, chart default setting)
+    new Chart1(ctx, config)
+  </script>
+  <!-- {{chart}} -->
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+{% block title %}  글 작성 {{user}}
+{% endblock %}
+
+{% load crispy_forms_tags %}
+{% block container %}
+
+<!-- 페이지 콘텐츠 영역  -->
+<h1>메모글 작성</h1>
+<p>by {{user}}</p>
+    
+
+<form action="" method="post">
+    <table>
+        {{ form }} {% csrf_token %}
+    </table>
+    <button type="submit">확인</button>
+</form>
+{% endblock %}        

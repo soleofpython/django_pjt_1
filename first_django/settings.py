@@ -25,6 +25,7 @@ SECRET_KEY = 'django-insecure-83jlobrv+i*gp4jf*ijtb+0mo-8ja7qzfmxvqzv)64e-w8d1p(
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -38,6 +39,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'creative',
+    'dashboard',
+    # crispy_forms bootstrap5 버전 설정
+    'crispy_forms',
+    "crispy_bootstrap5",
+    # pip install django-widget-tweaks
+    "widget_tweaks",
+    # pip install django-extensions
+    "django_extensions",
 ]
 
 MIDDLEWARE = [
@@ -118,7 +128,16 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = (BASE_DIR / "static",)
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# crispy_forms bootstrap5 버전 설정 
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# login을 성공한 후의 이동할 곳 : 홈
+LOGIN_REDIRECT_URL = '/'
