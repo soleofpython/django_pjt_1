@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     "widget_tweaks",
     # pip install django-extensions
     "django_extensions",
+    "blog",
+    "single_pages",
 ]
 
 MIDDLEWARE = [
