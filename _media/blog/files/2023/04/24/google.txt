@@ -1,0 +1,11 @@
+클라이언트 ID
+
+881422823370-hgu2f1k6lbjl3p0319nvq0vd6gnrkd3t.apps.googleusercontent.com
+
+클라이언트 보안 비밀번호
+
+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
+
+1. views.py
+2. views -> class 클래스명():
+		return

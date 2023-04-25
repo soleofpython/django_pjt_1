@@ -49,7 +49,14 @@ INSTALLED_APPS = [
     # pip install django-extensions
     "django_extensions",
     "blog",
-    "single_pages",
+    # all-auth lib 설정
+    'django.contrib.sites',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    # 구글 이메일 서비스
+    'allauth.socialaccount.providers.google', 
 ]
 
 MIDDLEWARE = [
@@ -130,6 +137,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, '_media')
+
 STATICFILES_DIRS = (BASE_DIR / "static",)
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -143,3 +153,19 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # login을 성공한 후의 이동할 곳 : 홈
 LOGIN_REDIRECT_URL = '/'
+
+# all-auth lib 설정
+AUTHENTICATION_BACKENDS = [
+    
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+    
+]
+
+SITE_ID = 2
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'

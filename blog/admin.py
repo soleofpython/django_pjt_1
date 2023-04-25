@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Bone
+from .models import Post
 
 # Register your models here.
-admin.site.register(Bone)
+admin.site.register(Post)

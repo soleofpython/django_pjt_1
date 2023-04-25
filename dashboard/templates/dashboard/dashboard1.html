@@ -10,17 +10,22 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
-<!-- <style>
-  .about{
-    padding-top: 10rem;
-    padding-bottom: calc(10rem - 4.5rem);
-    background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("../dashboard/templates/dashboard/bg-masthead.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-    background-size: cover;
+<style>
+  #etc{
+    display:flex;
+    align-items:center; /* 방향이 row 기준: 세로 중앙 정렬*/
+    height:600px;
+    background:wheat;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    align-content: space-between;
+    justify-content: space-around;
   }
-</style> -->
+
+  #etc > div{
+    margin-block: 20px;
+  }
+</style>
 <body>
   <div class="container">
       <!-- 홈페이지 버튼 -->
@@ -29,28 +34,29 @@
     <div class="row">
       <!-- class="d-grid gap-2 " -->
       <div class="col-8" >
-        <canvas id="myChart" height="500px"></canvas>
+        <canvas id="myChart" height="600px"></canvas>
       </div>      
-   
-    
-      <div class="btn-group-vertical col-4 ">      
-        <div>
-          <button class="btn btn-primary" type="button" mt-5 mb-5>관악구</button>
+      <div class="col-1">
+
+      </div>    
+      <div class="btn-group-vertical col-3 justify-content-center" id="etc">      
+        <div >
+          <button class="btn btn-primary" type="button">서울 동남권 지역</button>
         </div>
         <div>
-          <button class="btn btn-primary" type="button" mt-5 mb-5>서초구</button>
+          <button class="btn btn-secondary" type="button">서초구</button>
         </div>
         <div>
-          <button class="btn btn-primary" type="button" mt-5 mb-5>강남구</button>
+          <button class="btn btn-success" type="button">강남구</button>
         </div>
         <div>
-          <button class="btn btn-primary" type="button" mt-5 mb-5>송파구</button>
+          <button class="btn btn-danger" type="button">송파구</button>
         </div>
         <div>
-          <button class="btn btn-primary" type="button" mt-5 mb-5>강동구</button>
+          <button class="btn btn-warning" type="button">강동구</button>
         </div>
         <div >  
-          <button class="btn btn-primary" type="button" mt-5 mb-5>서울 동남권 지역</button>
+          <button class="btn btn-info" type="button">관악구</button>
         </div>
       </div>
     </div>
@@ -89,7 +95,7 @@
     const data = {
       labels: labels,
       datasets: [{
-        label: '2022년 송파구 맛집 방문 빈도수',
+        label: '2022년 서울 동남권 맛집 방문 빈도수',
         data: popData,
         backgroundColor: [
           

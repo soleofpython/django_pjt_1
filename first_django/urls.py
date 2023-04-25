@@ -15,23 +15,33 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+
+from django.conf import settings
+from django.conf.urls.static import static
+
 from creative.views import write, articleList
 from . import views
 from .views import UserCreateView, UserCreateDoneTV
 
 urlpatterns = [
+    path('blog/', include('blog.urls')),
     path('admin/', admin.site.urls),
     # path('', include('single_page.urls')),
     # path('creative/', include('creative.urls')),
     path('dashboard/', include('dashboard.urls')),
+    # path('', include('single_pages.urls')),
 
     path('write/', write, name='write'),
     path('', views.index, name='index'),
     path('list/', articleList, name="list"),
     # django.contrib.auth.urls 장고 내장 인증 urls 활용
     path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('allauth.urls')),
     # 가입처리
     path('accounts/register/', UserCreateView.as_view(), name='register'),
     # 계정생성이 완료됐다는 메시지를 보여줌
     path('accounts/register/done/', UserCreateDoneTV.as_view(), name='register_done'),
 ]
+
+# if settings.DEBUG:
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
